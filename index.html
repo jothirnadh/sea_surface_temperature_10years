@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoiam90aGlybmFkaCIsImEiOiI0MTIzNmYwZmIzNWQ3MjFlNWE2YmE4YzU1YWQyNDdhOCJ9.afll1jVPlwiIoz0bJx51_g';
+
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/jothirnadh/cio5n41b400afbvm8dewix2zz', //stylesheet url from above
+    center: [
+              0,
+              0
+            ], // starting position
+    zoom: 1.6 // starting zoom
+});
+map.addControl(new mapboxgl.Navigation());
+map.once('style.load', function() {
+    // once the style loads, do this
+    map.batch(function() {
+        // add our video source
+        map.addSource('storm-source', {
+            type: 'video',
+            urls: [
+                'output3/pwat.mp4' // path to our video
+            ],
+            coordinates: [
+                [ -180, 70 ],
+                [ 180, 70 ],
+                [ 180, -70 ],
+                [ -180, -70 ]
+            ] // the coordinates to which your data is clipped:
+        });
+        // add this layer to the map
+        map.addLayer({
+            type: 'raster',
+            id: 'storm-layer',
+            source: 'storm-source',
+            paint: {
+              'raster-opacity': 1
+            }
+        },
+        'landcover_wood'); // "after" our lowest hillshade layer
+    });
+});
+</script>
+</body>
+</html>
