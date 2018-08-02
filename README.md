@@ -4,8 +4,7 @@ An interactive map representing the sea surface temperature of 2005-2015
 ### Approach:
 
 * Downloading data from [NOAA](http://neo.sci.gsfc.nasa.gov/view.php?datasetId=MYD28M&date=2007-01-09) for 10 years i.e., 2005-2015
-* Setting up all [libraries and utilities]
-(https://gist.github.com/jothirnadh/11c9b11f10674ffea390e3e493ad86ed#step-1-preliminaries)
+* Setting up all [libraries and utilities](https://gist.github.com/jothirnadh/11c9b11f10674ffea390e3e493ad86ed#step-1-preliminaries)
 * Clipping the downloaded `tiff` files to responsible latitudes and longitudes
 
    `parallel rio clip {} clip/{/} --bounds -180.0 -70.0 180.0 70.0  ::: global/*.tif`
